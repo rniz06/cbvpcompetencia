@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('competencia.COM_TIPOS', function (Blueprint $table) {
+        Schema::create('competencia.COM_COMPETENCIAS', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo', 100);
+            $table->string('competencia', 100);
+            $table->foreignId('creadoPor')->nullable()->constrained('public.users')->cascadeOnUpdate()->onDelete('set null');
+            $table->foreignId('actualizadoPor')->nullable()->constrained('public.users')->cascadeOnUpdate()->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('competencia.COM_TIPOS');
+        Schema::dropIfExists('competencia.COM_COMPETENCIAS');
     }
 };

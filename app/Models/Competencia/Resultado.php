@@ -5,24 +5,15 @@ namespace App\Models\Competencia;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class CompetenciaConcursante extends Model
+class Resultado extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable, SoftDeletes;
 
-    protected $table = 'competencia.COM_COMPETENCIA_CONCURSANTE';
+    protected $table = 'competencia.COM_RESULTADOS';
 
-    protected $fillable = ['competencia_id','concursante_id', 'creadoPor', 'actualizadoPor'];
-
-    public function competencia()
-    {
-        return $this->belongsTo(Competencia::class, 'competencia_id');
-    }
-
-    public function concursante()
-    {
-        return $this->belongsTo(Concursante::class, 'concursante_id');
-    }
+    protected $fillable = ['competencia_id','concursante_id','fecha_hora_inicio','fecha_hora_fin','duracion_segundos', 'creadoPor', 'actualizadoPor'];
 
     /*
     |---------------------------------------

@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             RolYPermisoSeeder::class,
-            //PostSeeder::class,
+            CompetenciaSeeder::class,
             //CommentSeeder::class,
         ]);
     }

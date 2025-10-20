@@ -13,17 +13,7 @@ class Competencia extends Model implements Auditable
 
     protected $table = 'competencia.COM_COMPETENCIAS';
 
-    protected $fillable = ['tipo_id','fecha_hora_inicio','fecha_hora_fin','duracion_segundos', 'creadoPor', 'actualizadoPor'];
-
-    public function tipo()
-    {
-        return $this->belongsTo(Tipo::class, 'tipo_id');
-    }
-    
-    public function concursantes()
-    {
-        return $this->hasMany(CompetenciaConcursante::class, 'competencia_id');
-    }
+    protected $fillable = ['competencia', 'creadoPor', 'actualizadoPor'];
 
     /*
     |---------------------------------------

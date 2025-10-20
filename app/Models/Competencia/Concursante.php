@@ -15,11 +15,6 @@ class Concursante extends Model implements Auditable
 
     protected $fillable = ['nombrecompleto', 'creadoPor', 'actualizadoPor'];
 
-    public function competenciaConcursantes()
-    {
-        return $this->hasMany(CompetenciaConcursante::class, 'concursante_id');
-    }
-
     /*
     |---------------------------------------
     | RELACIONES DE AUDITORIA DE LA TABLA

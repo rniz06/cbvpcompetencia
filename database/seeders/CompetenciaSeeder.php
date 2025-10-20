@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Competencia\Tipo;
+use App\Models\Competencia\Competencia;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,7 +13,7 @@ class CompetenciaSeeder extends Seeder
      */
     public function run(): void
     {
-        $tipos = [
+        $competencias = [
             'INDIVIDUAL MASCULINA',
             'INDIVIDUAL FEMENINA',
             'GRUPAL MIXTA',
@@ -21,10 +21,10 @@ class CompetenciaSeeder extends Seeder
             'GRUPAL FEMENINA'
         ];
 
-        foreach ($tipos as $tipo) {
-            Tipo::create([
-                'tipo' => $tipo,
-                //'creadoPor' => 1, // ADMINISTRADOR
+        foreach ($competencias as $competencia) {
+            Competencia::create([
+                'competencia' => $competencia,
+                'creadoPor' => 1, // ADMINISTRADOR
             ]);
         }
     }
