@@ -15,6 +15,11 @@ class Competencia extends Model implements Auditable
 
     protected $fillable = ['competencia', 'creadoPor', 'actualizadoPor'];
 
+    public function resultados()
+    {
+        return $this->hasMany(Resultado::class, 'competencia_id');
+    }
+
     /*
     |---------------------------------------
     | RELACIONES DE AUDITORIA DE LA TABLA

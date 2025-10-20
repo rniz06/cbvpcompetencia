@@ -337,6 +337,11 @@ return [
             'route' => 'competencias.concursantes.index',
             'can' => 'Concursantes Index',
         ],
+        [
+            'text' => 'Resultados',
+            'route' => 'competencias.resultados.index',
+            'can' => 'Resultados Listar',
+        ],
         // [
         //     'text' => 'blog',
         //     'url' => 'admin/blog',

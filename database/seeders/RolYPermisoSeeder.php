@@ -17,7 +17,9 @@ class RolYPermisoSeeder extends Seeder
     public function run(): void
     {
         $permisos = [
-            'SuperAdmin',            
+            'SuperAdmin',
+            'Concursantes Index',
+            'Resultados Listar',
         ];
 
         foreach ($permisos as $permiso) {

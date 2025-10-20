@@ -17,6 +17,11 @@ class Concursante extends Model implements Auditable
 
     protected $fillable = ['nombrecompleto', 'creadoPor', 'actualizadoPor'];
 
+    public function resultados()
+    {
+        return $this->hasMany(Resultado::class, 'concursante_id');
+    }
+
     /**
      * Busqueda por campo nombrecompleto.
      */

@@ -15,6 +15,24 @@ class Resultado extends Model implements Auditable
 
     protected $fillable = ['competencia_id','concursante_id','fecha_hora_inicio','fecha_hora_fin','duracion_segundos', 'creadoPor', 'actualizadoPor'];
 
+    public function competencia()
+    {
+        return $this->belongsTo(Competencia::class, 'competencia_id');
+    }
+
+    public function concursante()
+    {
+        return $this->belongsTo(Concursante::class, 'concursante_id');
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'fecha_hora_inicio' => 'date',
+            'fecha_hora_fin'    => 'boolean',
+        ];
+    }
+
     /*
     |---------------------------------------
     | RELACIONES DE AUDITORIA DE LA TABLA
