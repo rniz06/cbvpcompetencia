@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Grupo Servipar',
+    'title' => 'CBVP COMPETENCIA',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>Grupo</b>Servipar',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>CBVP </b>Competencia',
+    'logo_img' => 'img/logos/cbvp-logo.webp',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Sistema POS Logo',
+    'logo_img_alt' => 'LOGO',
 
     /*
     |--------------------------------------------------------------------------
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'img/logos/cbvp-logo.webp',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -110,10 +110,10 @@ return [
     */
 
     'preloader' => [
-        'enabled' => true,
+        'enabled' => false,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'img/logos/cbvp-logo.webp',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
@@ -171,12 +171,12 @@ return [
     |
     */
 
-    'classes_auth_card' => 'card-outline card-success',
+    'classes_auth_card' => 'card-outline card-warning',
     'classes_auth_header' => '',
     'classes_auth_body' => '',
     'classes_auth_footer' => '',
     'classes_auth_icon' => '',
-    'classes_auth_btn' => 'btn-block btn-outline-success btn-sm',
+    'classes_auth_btn' => 'btn-block btn-outline-warning btn-sm',
     //'classes_auth_btn' => 'btn-flat btn-success'
 
     /*
