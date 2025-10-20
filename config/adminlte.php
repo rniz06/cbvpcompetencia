@@ -332,6 +332,11 @@ return [
                 ],
             ],
         ],
+        [
+            'text' => 'Concursantes',
+            'route' => 'competencias.concursantes.index',
+            'can' => 'Concursantes Index',
+        ],
         // [
         //     'text' => 'blog',
         //     'url' => 'admin/blog',

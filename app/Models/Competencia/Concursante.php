@@ -3,6 +3,8 @@
 namespace App\Models\Competencia;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -14,6 +16,18 @@ class Concursante extends Model implements Auditable
     protected $table = 'competencia.COM_CONCURSANTES';
 
     protected $fillable = ['nombrecompleto', 'creadoPor', 'actualizadoPor'];
+
+    /**
+     * Busqueda por campo nombrecompleto.
+     */
+    #[Scope]
+    protected function buscarNombrecompleto(Builder $query, $search = null): void
+    {
+        $query->when($search, function (Builder $query, string $search) {
+            $query->whereLike('nombrecompleto', "%{$search}%");
+        });
+    }
+
 
     /*
     |---------------------------------------
