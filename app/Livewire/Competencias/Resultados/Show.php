@@ -12,6 +12,8 @@ class Show extends Component
 {
     public $competencia, $resultado, $titulo, $competidores;
 
+    public $btnIniciarTodo = true, $btnDetenerTodo = false;
+
     public function mount($competencia)
     {
         $this->competencia = Competencia::find($competencia);
