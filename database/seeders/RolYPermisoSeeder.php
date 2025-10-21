@@ -20,6 +20,7 @@ class RolYPermisoSeeder extends Seeder
             'SuperAdmin',
             'Concursantes Index',
             'Resultados Listar',
+            'Resultados Crear',
         ];
 
         foreach ($permisos as $permiso) {

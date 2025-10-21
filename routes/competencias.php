@@ -16,6 +16,7 @@ Route::prefix('competencias')->name('competencias.')->middleware('auth')->group(
     // RUTAS DEL MODULO RESULTADOS
     Route::controller(ResultadoController::class)->group(function () {
         Route::get('/resultados', 'index')->name('resultados.index');
+        Route::get('/resultados/create', 'create')->name('resultados.create');
     });
     
 });

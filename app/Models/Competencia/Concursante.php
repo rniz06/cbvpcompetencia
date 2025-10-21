@@ -22,6 +22,13 @@ class Concursante extends Model implements Auditable
         return $this->hasMany(Resultado::class, 'concursante_id');
     }
 
+    public function competencias()
+    {
+        return $this->belongsToMany(Competencia::class, 'resultados');
+                    //->withPivot(['dorsal', 'tiempo_total', 'milisegundos', 'posicion', 'inicio', 'fin'])
+                    //->withTimestamps();
+    }
+
     /**
      * Busqueda por campo nombrecompleto.
      */

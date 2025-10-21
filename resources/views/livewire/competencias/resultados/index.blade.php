@@ -3,8 +3,8 @@
     <x-tabla titulo="Resultados" excel pdf>
 
         <x-slot name="headerBotones">
-            <a href="{{ route('admin.usuarios.create') }}" class="btn btn-sm btn-success"><i
-                    class="fas fa-plus-circle mr-2"></i>Añadir Carrera</a>
+            <a href="{{ route('competencias.resultados.create') }}" class="btn btn-sm btn-success"><i
+                    class="fas fa-plus-circle mr-2"></i>Registrar Carrera</a>
         </x-slot>
         <x-slot name="cabeceras">
             {{-- Competencia --}}

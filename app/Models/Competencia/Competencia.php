@@ -20,6 +20,13 @@ class Competencia extends Model implements Auditable
         return $this->hasMany(Resultado::class, 'competencia_id');
     }
 
+    public function concursantes()
+    {
+        return $this->belongsToMany(Concursante::class, 'resultados');
+                    //->withPivot(['dorsal', 'tiempo_total', 'milisegundos', 'posicion', 'inicio', 'fin'])
+                    //->withTimestamps();
+    }
+
     /*
     |---------------------------------------
     | RELACIONES DE AUDITORIA DE LA TABLA
