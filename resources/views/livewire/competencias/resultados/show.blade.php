@@ -11,14 +11,14 @@
     <hr>
     <div class="card p-4 d-flex justify-content-center align-items-center">
         <div class="d-flex">
-            <button type="button" class="btn btn-sm btn-outline-success mr-2"><i class="fas fa-play"></i> Iniciar
+            <button type="button" wire:click="iniciarTodo" class="btn btn-sm btn-outline-success mr-2"><i class="fas fa-play"></i> Iniciar
                 Todo</button>
-            <button type="button" class="btn btn-sm btn-outline-danger"><i class="fas fa-stop"></i> Detener
+            <button type="button" wire:click="detenerTodo" class="btn btn-sm btn-outline-danger"><i class="fas fa-stop"></i> Detener
                 Todo</button>
         </div>
     </div>
 
-    <h3 class="text-center mt-4">Competencia: {{ $titulo }}</h3>
+    <h3 class="text-center mt-4">Competencia: {{ $competencia->competencia ?? 'S/D' }}</h3>
     <div class="row col-md-12">
         @foreach ($competidores as $competidor)
             <x-adminlte-callout class="col-md-6">
