@@ -10,6 +10,7 @@
     </div>
     <hr>
     <div class="card p-4 d-flex justify-content-center align-items-center">
+        @livewire('competencias.reloj')
         <div class="d-flex">
             <button type="button" wire:click="iniciarTodo" class="btn btn-sm btn-outline-success mr-2"><i class="fas fa-play"></i> Iniciar
                 Todo</button>
