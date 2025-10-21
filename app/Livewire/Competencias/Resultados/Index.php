@@ -22,6 +22,11 @@ class Index extends Component
         }
     }
 
+    public function show($id)
+    {
+        return redirect()->route('competencias.resultados.show', $id);    
+    }
+
     public function render()
     {
         return view('livewire.competencias.resultados.index', [

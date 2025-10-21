@@ -35,7 +35,7 @@
         </x-slot>
 
         @forelse ($resultados as $resultado)
-            <tr>
+            <tr wire:click="show({{ $resultado->competencia_id }})" style="cursor: pointer;">
                 <td>{{ $resultado->competencia->competencia ?? 'S/D' }}</td>
                 <td>{{ $resultado->concursante->nombrecompleto ?? 'S/D' }}</td>
                 <td>{{ optional($resultado->fecha_hora_inicio)->format('d/m/Y H:i:s') ?? 'S/D' }}</td>
