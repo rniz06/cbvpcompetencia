@@ -12,13 +12,10 @@ use Livewire\Component;
 class Show extends Component
 {
     public $competencia, $resultado, $competidores;
-
     public $btnIniciarTodo = true;
     public $btnDetenerTodo = false;
-    public $tiempos = []; // tiempo actual de cada competidor (segundos)
-    public $corriendo = []; // para controlar si está corriendo o detenido
-
-    protected $listeners = ['tick' => 'actualizarTiempos'];
+    public $tiempos = [];
+    public $corriendo = [];
 
     public function mount($competencia)
     {
@@ -26,11 +23,11 @@ class Show extends Component
         $this->resultado = Resultado::with(['competencia', 'concursante'])
             ->where('competencia_id', $competencia)
             ->get();
+
         $this->competidores = Concursante::whereHas('resultados', function ($query) use ($competencia) {
             $query->where('competencia_id', $competencia);
         })->get();
 
-        // Inicializamos arrays
         foreach ($this->competidores as $competidor) {
             $this->tiempos[$competidor->id] = 0.00;
             $this->corriendo[$competidor->id] = false;
@@ -78,26 +75,28 @@ class Show extends Component
             ->first();
 
         if ($resultado && $resultado->fecha_hora_inicio) {
-            $inicio = Carbon::parse($resultado->fecha_hora_inicio);
+            $inicio = Carbon::parse($resultado->fecha_hora_inicio)->setTimezone(config('app.timezone'));
             $fin = now();
+            $duracion = abs($fin->diffInMilliseconds($inicio) / 1000);
+
             $resultado->update([
-                'fecha_hora_fin' => $fin,
-                'duracion_segundos' => $fin->diffInSeconds($inicio) + ($fin->diffInMilliseconds($inicio) % 1000) / 1000,
-                'actualizadoPor' => Auth::id()
+                'fecha_hora_fin'    => $fin,
+                'duracion_segundos' => $duracion,
+                'actualizadoPor'    => Auth::id(),
             ]);
 
-            $this->tiempos[$concursanteId] = number_format($resultado->tiempo_total, 2);
+            $this->tiempos[$concursanteId] = number_format($duracion, 2);
         }
 
         $this->corriendo[$concursanteId] = false;
     }
 
-    // Simula avance del cronómetro (solo en frontend)
+    // Este método es llamado automáticamente cada 100ms por wire:poll
     public function actualizarTiempos()
     {
         foreach ($this->competidores as $competidor) {
             if (!empty($this->corriendo[$competidor->id]) && $this->corriendo[$competidor->id]) {
-                $this->tiempos[$competidor->id] += 0.1; // suma 0.1 segundo cada tick
+                $this->tiempos[$competidor->id] += 0.1;
             }
         }
     }
