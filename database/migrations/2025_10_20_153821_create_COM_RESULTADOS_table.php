@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('concursante_id')->nullable()->constrained('competencia.COM_CONCURSANTES')->cascadeOnUpdate()->onDelete('set null');
             $table->dateTime('fecha_hora_inicio')->nullable();
             $table->dateTime('fecha_hora_fin')->nullable();
-            $table->bigInteger('duracion_segundos')->nullable();
+            $table->decimal('duracion_segundos', 10, 2)->nullable();
             $table->foreignId('creadoPor')->nullable()->constrained('public.users')->cascadeOnUpdate()->onDelete('set null');
             $table->foreignId('actualizadoPor')->nullable()->constrained('public.users')->cascadeOnUpdate()->onDelete('set null');
             $table->timestamps();

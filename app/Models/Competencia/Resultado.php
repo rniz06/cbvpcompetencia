@@ -28,8 +28,8 @@ class Resultado extends Model implements Auditable
     protected function casts(): array
     {
         return [
-            'fecha_hora_inicio' => 'date',
-            'fecha_hora_fin'    => 'boolean',
+            'fecha_hora_inicio' => 'datetime:America/Asuncion',
+            'fecha_hora_fin'    => 'datetime:America/Asuncion',
         ];
     }
 
