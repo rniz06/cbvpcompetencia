@@ -24,6 +24,7 @@ class Show extends Component
         // Trae todos los resultados con sus concursantes
         $this->resultados = Resultado::with('concursante')
             ->where('competencia_id', $competencia)
+            ->orderBy('id')
             ->get();
 
         $this->competidores = $this->resultados->pluck('concursante');

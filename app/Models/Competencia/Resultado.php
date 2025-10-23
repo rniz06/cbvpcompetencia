@@ -13,7 +13,21 @@ class Resultado extends Model implements Auditable
 
     protected $table = 'competencia.COM_RESULTADOS';
 
-    protected $fillable = ['competencia_id','concursante_id','fecha_hora_inicio','fecha_hora_fin','duracion_segundos', 'creadoPor', 'actualizadoPor'];
+    protected $fillable = [
+        'competencia_id',
+        'concursante_id',
+        'fecha_hora_inicio',
+        'fecha_hora_fin',
+        'duracion_segundos',
+        'escala',
+        'torre',
+        'mazo',
+        'arrastre',
+        'victima',
+        'total',
+        'creadoPor',
+        'actualizadoPor'
+    ];
 
     public function competencia()
     {

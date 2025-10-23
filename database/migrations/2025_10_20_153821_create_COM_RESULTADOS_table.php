@@ -18,6 +18,12 @@ return new class extends Migration
             $table->dateTime('fecha_hora_inicio')->nullable();
             $table->dateTime('fecha_hora_fin')->nullable();
             $table->decimal('duracion_segundos', 10, 2)->nullable();
+            $table->decimal('escala', 10, 2)->nullable();
+            $table->decimal('torre', 10, 2)->nullable();
+            $table->decimal('mazo', 10, 2)->nullable();
+            $table->decimal('arrastre', 10, 2)->nullable();
+            $table->decimal('victima', 10, 2)->nullable();
+            $table->decimal('total', 10, 2)->nullable();
             $table->foreignId('creadoPor')->nullable()->constrained('public.users')->cascadeOnUpdate()->onDelete('set null');
             $table->foreignId('actualizadoPor')->nullable()->constrained('public.users')->cascadeOnUpdate()->onDelete('set null');
             $table->timestamps();
