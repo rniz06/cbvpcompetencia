@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('competencia.COM_CONCURSANTES', function (Blueprint $table) {
             $table->id();
             $table->string('nombrecompleto');
+            $table->string('codigo', 15)->nullable();
+            $table->string('categoria', 45)->nullable();
+            $table->string('compania', 45)->nullable();
             $table->foreignId('creadoPor')->nullable()->constrained('public.users')->cascadeOnUpdate()->onDelete('set null');
             $table->foreignId('actualizadoPor')->nullable()->constrained('public.users')->cascadeOnUpdate()->onDelete('set null');
             $table->timestamps();

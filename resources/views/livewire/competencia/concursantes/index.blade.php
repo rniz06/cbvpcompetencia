@@ -12,11 +12,31 @@
                     oninput="this.value = this.value.toUpperCase()" label="Nombre Completo" igroup-size="sm" />
             </th>
 
+            {{-- Categoria --}}
+            <th>
+                <x-adminlte-input name="" wire:model.live.debounce.200ms="buscarCategoria"
+                    oninput="this.value = this.value.toUpperCase()" label="Categoria" igroup-size="sm" />
+            </th>
+
+            {{-- Codigo --}}
+            <th>
+                <x-adminlte-input type="number" name="" wire:model.live.debounce.200ms="buscarCodigo" label="Código" igroup-size="sm" />
+            </th>
+
+            {{-- Compañia --}}
+            <th>
+                <x-adminlte-input name="" wire:model.live.debounce.200ms="buscarCompania"
+                    oninput="this.value = this.value.toUpperCase()" label="Compañia" igroup-size="sm" />
+            </th>
+
         </x-slot>
 
         @forelse ($concursantes as $concursante)
             <tr wire:click="seleccionado({{ $concursante->id }})" wire:key="{{ $concursante->id }}">
                 <td>{{ $concursante->nombrecompleto ?? 'S/D' }}</td>
+                <td>{{ $concursante->categoria ?? 'S/D' }}</td>
+                <td>{{ $concursante->codigo ?? 'S/D' }}</td>
+                <td>{{ $concursante->compania ?? 'S/D' }}</td>
             </tr>
         @empty
             <tr>

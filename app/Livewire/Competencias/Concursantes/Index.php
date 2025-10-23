@@ -11,6 +11,9 @@ class Index extends Component
     use WithPagination;
 
     public $buscarNombrecompleto = '';
+    public $buscarCategoria = '';
+    public $buscarCodigo = '';
+    public $buscarCompania = '';
     public $paginado = 5;
 
     protected $listeners = ['concursanteActualizado' => '$refresh'];
@@ -22,7 +25,7 @@ class Index extends Component
 
     public function updating($key): void
     {
-        if ($key === 'buscarNombrecompleto' || $key === 'paginado') {
+        if ($key === 'buscarNombrecompleto' || $key === 'buscarCategoria' || $key === 'buscarCodigo' || $key === 'buscarCompania' || $key === 'paginado') {
             $this->resetPage();
         }
     }
@@ -30,8 +33,11 @@ class Index extends Component
     public function render()
     {
         return view('livewire.competencia.concursantes.index', [
-            'concursantes' => Concursante::select('id', 'nombrecompleto')
+            'concursantes' => Concursante::select('id', 'nombrecompleto', 'categoria', 'codigo', 'compania')
                 ->buscarNombrecompleto($this->buscarNombrecompleto)
+                ->buscarCategoria($this->buscarCategoria)
+                ->buscarCodigo($this->buscarCodigo)
+                ->buscarCompania($this->buscarCompania)
                 ->orderBy('nombrecompleto')
                 ->paginate($this->paginado)
         ]);

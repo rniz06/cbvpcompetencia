@@ -1,5 +1,4 @@
 <div>
-    {{ $modo }}
     {{-- Formulario --}}
     {{-- <x-adminlte-card theme="light" title="Añadir Concursante" icon="fas fa-plus-circle" header-class="text-muted text-sm">
         <form class="row col-md-12 p-2" wire:submit="grabar">
@@ -32,10 +31,24 @@
     </x-adminlte-card> --}}
     <div class="card card-success card-outline p-2">
         {{-- Formulario --}}
-        <form class="" wire:submit="grabar">
+        <form class="row" wire:submit="grabar">
+            {{-- Nombre --}}
+            <x-adminlte-input name="nombrecompleto" label="Nombre Completo:" placeholder="Ej: JUAN PEREZ..."
+                fgroup-class="col-md-3" igroup-size="sm" oninput="this.value = this.value.toUpperCase()"
+                wire:model.blur="nombrecompleto" :disabled="in_array($modo, ['inicio', 'seleccionado'])" />
+
             {{-- Categoria --}}
-            <x-adminlte-input name="nombrecompleto" label="Nombre Completo:" placeholder="Ej: JUAN PEREZ..." fgroup-class="col-md-12"
-                igroup-size="sm" oninput="this.value = this.value.toUpperCase()" wire:model.blur="nombrecompleto"
+            <x-adminlte-input name="categoria" label="Categoria:" placeholder="Ej: COMBATIENTE O ACTIVO"
+                fgroup-class="col-md-3" igroup-size="sm" oninput="this.value = this.value.toUpperCase()"
+                wire:model.blur="categoria" :disabled="in_array($modo, ['inicio', 'seleccionado'])" />
+
+            {{-- Código --}}
+            <x-adminlte-input name="codigo" label="Código:" placeholder="Ej: 7802" fgroup-class="col-md-3"
+                igroup-size="sm" wire:model.blur="codigo" :disabled="in_array($modo, ['inicio', 'seleccionado'])" />
+
+            {{-- Compania --}}
+            <x-adminlte-input name="compania" label="Compañia:" placeholder="Ej: K126" fgroup-class="col-md-3"
+                igroup-size="sm" wire:model.blur="compania" oninput="this.value = this.value.toUpperCase()"
                 :disabled="in_array($modo, ['inicio', 'seleccionado'])" />
 
             {{-- Botones --}}

@@ -25,8 +25,8 @@ class Concursante extends Model implements Auditable
     public function competencias()
     {
         return $this->belongsToMany(Competencia::class, 'resultados');
-                    //->withPivot(['dorsal', 'tiempo_total', 'milisegundos', 'posicion', 'inicio', 'fin'])
-                    //->withTimestamps();
+        //->withPivot(['dorsal', 'tiempo_total', 'milisegundos', 'posicion', 'inicio', 'fin'])
+        //->withTimestamps();
     }
 
     /**
@@ -37,6 +37,39 @@ class Concursante extends Model implements Auditable
     {
         $query->when($search, function (Builder $query, string $search) {
             $query->whereLike('nombrecompleto', "%{$search}%");
+        });
+    }
+
+    /**
+     * Busqueda por campo categoria.
+     */
+    #[Scope]
+    protected function buscarCategoria(Builder $query, $search = null): void
+    {
+        $query->when($search, function (Builder $query, string $search) {
+            $query->whereLike('categoria', "%{$search}%");
+        });
+    }
+
+    /**
+     * Busqueda por campo codigo.
+     */
+    #[Scope]
+    protected function buscarCodigo(Builder $query, $search = null): void
+    {
+        $query->when($search, function (Builder $query, string $search) {
+            $query->whereLike('codigo', "%{$search}%");
+        });
+    }
+
+    /**
+     * Busqueda por campo compania.
+     */
+    #[Scope]
+    protected function buscarCompania(Builder $query, $search = null): void
+    {
+        $query->when($search, function (Builder $query, string $search) {
+            $query->whereLike('compania', "%{$search}%");
         });
     }
 

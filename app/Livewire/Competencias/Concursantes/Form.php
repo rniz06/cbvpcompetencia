@@ -12,7 +12,7 @@ class Form extends Component
 {
     public $concursante_id;
     #[Validate]
-    public $nombrecompleto;
+    public $nombrecompleto, $codigo, $categoria, $compania;
     public $modo = 'inicio'; // inicio, agregar, modificar, seleccionado
 
     protected $listeners = ['concursanteSeleccionado' => 'cargarConcursante'];
@@ -21,6 +21,9 @@ class Form extends Component
     {
         return [
             'nombrecompleto'  => ['required', 'max:100', Rule::unique(Concursante::class)->ignore($this->concursante_id)],
+            'codigo'  => ['required', 'max:5'],
+            'categoria'  => ['required', 'max:15'],
+            'compania'  => ['required', 'max:100'],
         ];
     }
 
@@ -36,7 +39,10 @@ class Form extends Component
 
         $this->concursante_id  = $concursante->id;
         $this->nombrecompleto  = $concursante->nombrecompleto;
-        $this->modo = 'seleccionado';
+        $this->codigo          = $concursante->codigo;
+        $this->categoria       = $concursante->categoria;
+        $this->compania        = $concursante->compania;
+        $this->modo            = 'seleccionado';
     }
 
     public function editar()
@@ -78,7 +84,10 @@ class Form extends Component
     {
         $this->concursante_id = null;
         $this->nombrecompleto = null;
-        $this->modo = 'inicio';
+        $this->codigo         = null;
+        $this->categoria      = null;
+        $this->compania       = null;
+        $this->modo           = 'inicio';
     }
 
     public function render()
