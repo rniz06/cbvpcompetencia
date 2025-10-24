@@ -14,14 +14,13 @@ class Show extends Component
     public $competencia, $resultados, $competidores;
     public $btnIniciarTodo = true;
     public $btnDetenerTodo = false;
-    public $tiempos = [];
     public $corriendo = [];
 
     public function mount($competencia)
     {
         $this->competencia = Competencia::find($competencia);
 
-        // Trae todos los resultados con sus concursantes
+        // Cargar resultados y competidores
         $this->resultados = Resultado::with('concursante')
             ->where('competencia_id', $competencia)
             ->orderBy('id')
@@ -29,33 +28,25 @@ class Show extends Component
 
         $this->competidores = $this->resultados->pluck('concursante');
 
+        // Configurar estado de botones según BD
         foreach ($this->resultados as $resultado) {
             $id = $resultado->concursante_id;
-
-            if ($resultado->fecha_hora_inicio && !$resultado->fecha_hora_fin) {
-                // Si está corriendo, calcular tiempo actual desde la BD
-                $inicio = Carbon::parse($resultado->fecha_hora_inicio)->setTimezone(config('app.timezone'));
-                $this->tiempos[$id] = now()->diffInMilliseconds($inicio) / 1000;
-                $this->corriendo[$id] = true;
-                $this->btnIniciarTodo = false;
-                $this->btnDetenerTodo = true;
-            } elseif ($resultado->duracion_segundos) {
-                // Si ya fue detenido, mostrar el tiempo final guardado
-                $this->tiempos[$id] = $resultado->duracion_segundos;
-                $this->corriendo[$id] = false;
-            } else {
-                // Sin iniciar
-                $this->tiempos[$id] = 0.00;
-                $this->corriendo[$id] = false;
-            }
+            $this->corriendo[$id] = $resultado->fecha_hora_inicio && !$resultado->fecha_hora_fin;
         }
+
+        // Determinar estado global
+        $enCurso = $this->resultados->contains(fn($r) => $r->fecha_hora_inicio && !$r->fecha_hora_fin);
+        $this->btnIniciarTodo = !$enCurso;
+        $this->btnDetenerTodo = $enCurso;
     }
 
     public function iniciarTodo()
     {
+        $ahora = now();
+
         Resultado::where('competencia_id', $this->competencia->id)
             ->update([
-                'fecha_hora_inicio' => now(),
+                'fecha_hora_inicio' => $ahora,
                 'fecha_hora_fin' => null,
                 'duracion_segundos' => null,
                 'actualizadoPor' => Auth::id(),
@@ -66,8 +57,10 @@ class Show extends Component
 
         foreach ($this->competidores as $competidor) {
             $this->corriendo[$competidor->id] = true;
-            $this->tiempos[$competidor->id] = 0.00;
         }
+
+        // Refrescar resultados
+        $this->mount($this->competencia->id);
     }
 
     public function detenerTodo()
@@ -76,21 +69,21 @@ class Show extends Component
             if ($resultado->fecha_hora_inicio && !$resultado->fecha_hora_fin) {
                 $inicio = Carbon::parse($resultado->fecha_hora_inicio)->setTimezone(config('app.timezone'));
                 $fin = now();
-                $duracion = abs($fin->diffInMilliseconds($inicio) / 1000);
+                $duracion = $inicio->diffInSeconds($fin);
 
                 $resultado->update([
                     'fecha_hora_fin' => $fin,
                     'duracion_segundos' => $duracion,
                     'actualizadoPor' => Auth::id(),
                 ]);
-
-                $this->tiempos[$resultado->concursante_id] = number_format($duracion, 2);
             }
         }
 
         $this->btnIniciarTodo = true;
         $this->btnDetenerTodo = false;
         $this->corriendo = array_map(fn() => false, $this->corriendo);
+
+        $this->mount($this->competencia->id);
     }
 
     public function detenerIndividual($concursanteId)
@@ -102,7 +95,7 @@ class Show extends Component
         if ($resultado && $resultado->fecha_hora_inicio && !$resultado->fecha_hora_fin) {
             $inicio = Carbon::parse($resultado->fecha_hora_inicio)->setTimezone(config('app.timezone'));
             $fin = now();
-            $duracion = abs($fin->diffInMilliseconds($inicio) / 1000);
+            $duracion = $inicio->diffInSeconds($fin);
 
             $resultado->update([
                 'fecha_hora_fin' => $fin,
@@ -110,19 +103,10 @@ class Show extends Component
                 'actualizadoPor' => Auth::id(),
             ]);
 
-            $this->tiempos[$concursanteId] = number_format($duracion, 2);
+            $this->corriendo[$concursanteId] = false;
         }
 
-        $this->corriendo[$concursanteId] = false;
-    }
-
-    public function actualizarTiempos()
-    {
-        foreach ($this->corriendo as $id => $estado) {
-            if ($estado) {
-                $this->tiempos[$id] += 0.1;
-            }
-        }
+        $this->mount($this->competencia->id);
     }
 
     public function render()

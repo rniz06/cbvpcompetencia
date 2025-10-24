@@ -10,91 +10,97 @@ use Livewire\Component;
 
 class Campos extends Component
 {
+    public $competencia_id, $competidor_id;
     public $resultado;
+    public $bloquearBotones = true; // Por defecto bloqueado
 
-    public function mount($competidor_id, $competencia_id)
+    protected $listeners = ['refreshCampos' => '$refresh'];
+
+    public function mount($competencia_id, $competidor_id)
     {
-        $this->resultado = Resultado::where([['competencia_id', $competencia_id], ['concursante_id', $competidor_id]])->first();
+        $this->competencia_id = $competencia_id;
+        $this->competidor_id = $competidor_id;
+
+        $this->cargarResultado();
     }
 
-    public function registrarEscala($id)
+    public function cargarResultado()
     {
-        $inicio = Carbon::parse($this->resultado->fecha_hora_inicio)->setTimezone(config('app.timezone'));
-        $fin = now();
-        $duracion = abs($fin->diffInMilliseconds($inicio) / 1000);
+        $this->resultado = Resultado::where('competencia_id', $this->competencia_id)
+            ->where('concursante_id', $this->competidor_id)
+            ->first();
 
-        Resultado::findOrFail($id)->update([
-            'escala' => $duracion ?? null,
-            'total'  => $this->resultado->total + $duracion ?? null
-        ]);
-
-        // Refrescar el modelo en la instancia actual del componente
-        $this->resultado = $this->resultado->fresh();
+        $this->actualizarEstadoBotones();
     }
 
-    public function registrarTorre($id)
+    public function actualizarEstadoBotones()
     {
-        $inicio = Carbon::parse($this->resultado->fecha_hora_inicio)->setTimezone(config('app.timezone'));
-        $fin = now();
-        $duracion = abs($fin->diffInMilliseconds($inicio) / 1000);
+        if ($this->resultado && $this->resultado->fecha_hora_inicio) {
+            $inicio = Carbon::parse($this->resultado->fecha_hora_inicio)->setTimezone(config('app.timezone'));
+            $ahora = Carbon::now(config('app.timezone'));
 
-        Resultado::findOrFail($id)->update([
-            'torre' => $duracion ?? null,
-            'total'  => $this->resultado->total + $duracion ?? null
-        ]);
-
-        // Refrescar el modelo en la instancia actual del componente
-        $this->resultado = $this->resultado->fresh();
+            // Si la hora actual >= hora de inicio => habilitado
+            $this->bloquearBotones = $ahora->lt($inicio);
+        } else {
+            $this->bloquearBotones = true;
+        }
     }
 
-    public function registrarMazo($id)
+    // ----------------------
+    // MÉTODOS DE ACCIÓN
+    // ----------------------
+
+    public function marcarEscala()
     {
-        $inicio = Carbon::parse($this->resultado->fecha_hora_inicio)->setTimezone(config('app.timezone'));
-        $fin = now();
-        $duracion = abs($fin->diffInMilliseconds($inicio) / 1000);
-
-        Resultado::findOrFail($id)->update([
-            'mazo' => $duracion ?? null,
-            'total'  => $this->resultado->total + $duracion ?? null
-        ]);
-
-        // Refrescar el modelo en la instancia actual del componente
-        $this->resultado = $this->resultado->fresh();
+        $this->actualizarCampo('escala');
     }
 
-    public function registrarArrastre($id)
+    public function marcarTorre()
     {
-        $inicio = Carbon::parse($this->resultado->fecha_hora_inicio)->setTimezone(config('app.timezone'));
-        $fin = now();
-        $duracion = abs($fin->diffInMilliseconds($inicio) / 1000);
-
-        Resultado::findOrFail($id)->update([
-            'arrastre' => $duracion ?? null,
-            'total'  => $this->resultado->total + $duracion ?? null
-        ]);
-
-        // Refrescar el modelo en la instancia actual del componente
-        $this->resultado = $this->resultado->fresh();
+        $this->actualizarCampo('torre');
     }
 
-    public function registrarVictima($id)
+    public function marcarMazo()
     {
+        $this->actualizarCampo('mazo');
+    }
+
+    public function marcarArrastre()
+    {
+        $this->actualizarCampo('arrastre');
+    }
+
+    public function marcarVictima()
+    {
+        $victima = Carbon::now()->format('Y-m-d H:i:s.v');
         $inicio = Carbon::parse($this->resultado->fecha_hora_inicio)->setTimezone(config('app.timezone'));
-        $fin = now();
-        $duracion = abs($fin->diffInMilliseconds($inicio) / 1000);
+        $fin = Carbon::parse($victima)->setTimezone(config('app.timezone'));
+        $duracion = $inicio->diffInSeconds($fin);
 
-        Resultado::findOrFail($id)->update([
-            'victima' => $duracion ?? null,
-            'total'  => $this->resultado->total + $duracion ?? null
-        ]);
+        Resultado::where([['competencia_id', $this->competencia_id], ['concursante_id', $this->competidor_id]])
+            ->update([
+                'victima' => $victima,
+                'fecha_hora_fin' => now(),
+                'duracion_segundos' => $duracion,
+            ]);
+    }
 
-        // Refrescar el modelo en la instancia actual del componente
-        $this->resultado = $this->resultado->fresh();
+    protected function actualizarCampo($campo)
+    {
+        if ($this->bloquearBotones) return;
+
+        Resultado::where('competencia_id', $this->competencia_id)
+            ->where('concursante_id', $this->competidor_id)
+            ->update([$campo => Carbon::now()->format('Y-m-d H:i:s.v')]);
+
+        $this->cargarResultado();
     }
 
     public function render()
     {
-        //return dd($this->resultado);
+        // Recalcular cada segundo
+        $this->actualizarEstadoBotones();
+
         return view('livewire.competencias.resultados.campos');
     }
 }

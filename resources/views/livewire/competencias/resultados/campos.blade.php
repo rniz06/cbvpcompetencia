@@ -1,72 +1,42 @@
-<div class="row">
+<div wire:poll.1s>
+    <div class="d-flex flex-wrap gap-2">
+        <button wire:click="marcarEscala" class="btn btn-outline-primary btn-sm"
+            @if ($bloquearBotones) disabled @endif>
+            Escala
+        </button>
 
-    {{-- {{ $resultado }} --}}
-    {{-- Escala --}}
-    @if ($resultado->escala == null)
-        <div class="col-sm-2">
-            <div class="form-group">
-                <label>Escala:</label>
-                <button class="btn btn-success btn-block btn-sm" wire:click="registrarEscala({{ $resultado->id }})">Accionar</button>
-            </div>
-        </div>
-    @else
-        <x-adminlte-input name="" label="Escala:" value="{{ $resultado->escala }}" fgroup-class="col-md-2"
-            disabled />
-    @endif
+        <button wire:click="marcarTorre" class="btn btn-outline-secondary btn-sm"
+            @if ($bloquearBotones) disabled @endif>
+            Torre
+        </button>
 
-    {{-- Torre --}}
-    @if ($resultado->torre == null)
-        <div class="col-sm-2">
-            <div class="form-group">
-                <label>Torre:</label>
-                <button class="btn btn-success btn-block btn-sm" wire:click="registrarTorre({{ $resultado->id }})">Accionar</button>
-            </div>
-        </div>
-    @else
-        <x-adminlte-input name="" label="Torre:" value="{{ $resultado->torre }}" fgroup-class="col-md-2"
-            disabled />
-    @endif
+        <button wire:click="marcarMazo" class="btn btn-outline-success btn-sm"
+            @if ($bloquearBotones) disabled @endif>
+            Mazo
+        </button>
 
-    {{-- Mazo --}}
-    @if ($resultado->mazo == null)
-        <div class="col-sm-2">
-            <div class="form-group">
-                <label>Mazo:</label>
-                <button class="btn btn-success btn-block btn-sm" wire:click="registrarMazo({{ $resultado->id }})">Accionar</button>
-            </div>
-        </div>
-    @else
-        <x-adminlte-input name="" label="Mazo:" value="{{ $resultado->mazo }}" fgroup-class="col-md-2"
-            disabled />
-    @endif
+        <button wire:click="marcarArrastre" class="btn btn-outline-warning btn-sm"
+            @if ($bloquearBotones) disabled @endif>
+            Arrastre
+        </button>
 
-    {{-- Arrastre --}}
-    @if ($resultado->arrastre == null)
-        <div class="col-sm-2">
-            <div class="form-group">
-                <label>Arrastre:</label>
-                <button class="btn btn-success btn-block btn-sm" wire:click="registrarArrastre({{ $resultado->id }})">Accionar</button>
-            </div>
-        </div>
-    @else
-        <x-adminlte-input name="" label="Arrastre:" value="{{ $resultado->arrastre }}" fgroup-class="col-md-2"
-            disabled />
-    @endif
+        <button wire:click="marcarVictima" class="btn btn-outline-danger btn-sm"
+            @if ($bloquearBotones) disabled @endif>
+            Víctima
+        </button>
+    </div>
 
-    {{-- Victima --}}
-    @if ($resultado->victima == null)
-        <div class="col-sm-2">
-            <div class="form-group">
-                <label>Victima:</label>
-                <button class="btn btn-success btn-block btn-sm" wire:click="registrarVictima({{ $resultado->id }})">Accionar</button>
-            </div>
-        </div>
-    @else
-        <x-adminlte-input name="" label="Victima:" value="{{ $resultado->victima }}" fgroup-class="col-md-2"
-            disabled />
-    @endif
-
-    {{-- Total --}}
-    <x-adminlte-input name="total" wire:model.blur="total" label="Total" disabled fgroup-class="col-md-2"
-        igroup-size="sm" value="{{ $resultado->total ?? '' }}" />
+    <div class="mt-2">
+        @if ($resultado)
+            <small class="">
+                Inicio: {{ optional($resultado->fecha_hora_inicio)->format('H:i:s') ?? '—' }} |
+                Escala: {{ optional($resultado->escala)->format('H:i:s:v') ?? '—' }} |
+                Torre: {{ optional($resultado->torre)->format('H:i:s:v') ?? '—' }} |
+                Mazo: {{ optional($resultado->mazo)->format('H:i:s:v') ?? '—' }} |
+                Arrastre: {{ optional($resultado->arrastre)->format('H:i:s:v') ?? '—' }} |
+                Víctima: {{ optional($resultado->victima)->format('H:i:s:v') ?? '—' }}|
+                Total: {{ $resultado->duracion_segundos . ' Segundos' ?? '—' }}
+            </small>
+        @endif
+    </div>
 </div>

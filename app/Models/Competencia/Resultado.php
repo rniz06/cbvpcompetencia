@@ -44,6 +44,11 @@ class Resultado extends Model implements Auditable
         return [
             'fecha_hora_inicio' => 'datetime:America/Asuncion',
             'fecha_hora_fin'    => 'datetime:America/Asuncion',
+            'escala'            => 'datetime:America/Asuncion',
+            'torre'             => 'datetime:America/Asuncion',
+            'arrastre'          => 'datetime:America/Asuncion',
+            'mazo'              => 'datetime:America/Asuncion',
+            'victima'           => 'datetime:America/Asuncion',
         ];
     }
 
