@@ -2,7 +2,7 @@
     <div class="text-center">@livewire('competencias.reloj')</div>
 
     <h3 class="text-center mt-4">
-        Competencia: {{ $competencia->competencia ?? 'S/D' }}
+        Competencia: {{ $competencia->competencia ?? 'S/D' }} - Inicio: {{ $fecha_hora_inicio ?? 'S/D' }}
     </h3>
 
     <div class="row col-md-12 mt-3">

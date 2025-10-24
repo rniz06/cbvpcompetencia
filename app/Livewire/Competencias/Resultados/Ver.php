@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class Ver extends Component
 {
-    public $competencia = null, $competidores = [], $resultados;
+    public $competencia = null, $competidores = [], $resultados, $fecha_hora_inicio;
 
     public function mount($competencia)
     {
@@ -19,6 +19,12 @@ class Ver extends Component
             ->where('competencia_id', $competencia)
             ->orderBy('id')
             ->get();
+
+        $this->fecha_hora_inicio = Resultado::where('competencia_id', $competencia)
+            ->orderBy('created_at', 'asc')
+            ->first()
+            ->fecha_hora_inicio
+            ->format('d/m/Y H:i:s');
 
         $this->competidores = $this->resultados->pluck('concursante');
     }
