@@ -26,9 +26,29 @@
         </button>
     </div>
 
-    <div class="mt-2">
+    <div class="mt-2 row">
         @if ($resultado)
-            <small class="">
+            {{-- <x-adminlte-input name="" readonly label="Inicio"
+                value="{{ optional($resultado->fecha_hora_inicio)->format('H:i:s') ?? '—' }}" fgroup-class="col-md-2" /> --}}
+
+            <x-adminlte-input name="" readonly label="Escala"
+                value="{{ optional($resultado->escala)->format('H:i:s:v') ?? '—' }}" fgroup-class="col-md-2" />
+
+            <x-adminlte-input name="" readonly label="Torre"
+                value="{{ optional($resultado->torre)->format('H:i:s:v') ?? '—' }}" fgroup-class="col-md-2" />
+
+            <x-adminlte-input name="" readonly label="Mazo"
+                value="{{ optional($resultado->mazo)->format('H:i:s:v') ?? '—' }}" fgroup-class="col-md-2" />
+
+            <x-adminlte-input name="" readonly label="Arrastre"
+                value="{{ optional($resultado->arrastre)->format('H:i:s:v') ?? '—' }}" fgroup-class="col-md-2" />
+
+                <x-adminlte-input name="" readonly label="Víctima"
+                value="{{ optional($resultado->victima)->format('H:i:s:v') ?? '—' }}" fgroup-class="col-md-2" />
+                <x-adminlte-input name="" readonly label="Total"
+                value="{{ $resultado->duracion_segundos . ' Segundos' ?? '—' }}" fgroup-class="col-md-2" />
+
+            {{-- <small class="">
                 Inicio: {{ optional($resultado->fecha_hora_inicio)->format('H:i:s') ?? '—' }} |
                 Escala: {{ optional($resultado->escala)->format('H:i:s:v') ?? '—' }} |
                 Torre: {{ optional($resultado->torre)->format('H:i:s:v') ?? '—' }} |
@@ -36,7 +56,7 @@
                 Arrastre: {{ optional($resultado->arrastre)->format('H:i:s:v') ?? '—' }} |
                 Víctima: {{ optional($resultado->victima)->format('H:i:s:v') ?? '—' }}|
                 Total: {{ $resultado->duracion_segundos . ' Segundos' ?? '—' }}
-            </small>
+            </small> --}}
         @endif
     </div>
 </div>
