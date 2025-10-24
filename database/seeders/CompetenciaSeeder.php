@@ -30,10 +30,17 @@ class CompetenciaSeeder extends Seeder
         }
 
         $concursantes = [
-            'JUAN PEREZ',
-            'JUANA PEREZ',
-            'JUAN CARLOS PEREZ',
-            'JUAN RAMON PEREZ',
+            'Individual Masculino K10',
+            'Individual Masculino K13',
+            'Individual Masculino K122',
+            'Grupal Masculino promo 2021(varias cñias)',
+            'Grupal Mixto promo 2021(varias Cñias)',
+            'Grupal Femenino promo 2021(varias Cñias.)',
+            'Individual Femenino K4',
+            'Grupal Femenino K4',
+            'Grupal Femenino K4 (Equip. 2)',
+            'Grupal Mixto K4',
+            'Grupal Masculino K4'
         ];
 
         foreach ($concursantes as $concursante) {

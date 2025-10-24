@@ -41,7 +41,7 @@
             
             {{-- Botón de Volver --}}
             <div class="form-group col-md-3 d-flex align-items-end">
-                <a href="{{ route('admin.usuarios.index') }}"
+                <a href="{{ route('competencias.resultados.index') }}"
                     class="btn btn-block btn-outline-secondary text-decoration-none btn-sm"><i
                         class="fas fa-arrow-left mr-1"></i>Volver</a>
             </div>
