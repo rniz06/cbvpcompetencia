@@ -15,6 +15,7 @@ class ResultadoController extends Controller
     {
         $this->middleware('permission:Resultados Listar', ['only' => ['index']]);
         $this->middleware('permission:Resultados Crear', ['only' => ['create']]);
+        $this->middleware('permission:Resultados Editar', ['only' => ['edit']]);
         $this->middleware('permission:Resultados Ver', ['only' => ['show']]);
     }
 
@@ -26,6 +27,11 @@ class ResultadoController extends Controller
     public function create()
     {
         return view('competencias.resultados.create');    
+    }
+
+    public function edit($resultado)
+    {
+        return view('competencias.resultados.edit', compact('resultado'));    
     }
 
     public function show($competencia)

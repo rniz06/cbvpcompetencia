@@ -35,13 +35,18 @@
         </x-slot>
 
         @forelse ($resultados as $resultado)
-            <tr wire:click="show({{ $resultado->competencia_id }})" style="cursor: pointer;">
-                <td>{{ $resultado->competencia->competencia ?? 'S/D' }}</td>
-                <td>{{ $resultado->concursante->nombrecompleto ?? 'S/D' }}</td>
-                <td>{{ optional($resultado->fecha_hora_inicio)->format('d/m/Y H:i:s') ?? 'S/D' }}</td>
-                <td>{{ optional($resultado->fecha_hora_fin)->format('d/m/Y H:i:s') ?? 'S/D' }}</td>
+            <tr>
+                <td wire:click="show({{ $resultado->competencia_id }})">
+                    {{ $resultado->competencia->competencia ?? 'S/D' }}</td>
+                <td wire:click="show({{ $resultado->competencia_id }})">
+                    {{ $resultado->concursante->nombrecompleto ?? 'S/D' }}</td>
+                <td wire:click="show({{ $resultado->competencia_id }})">
+                    {{ optional($resultado->fecha_hora_inicio)->format('d/m/Y H:i:s') ?? 'S/D' }}</td>
+                <td wire:click="show({{ $resultado->competencia_id }})">
+                    {{ optional($resultado->fecha_hora_fin)->format('d/m/Y H:i:s') ?? 'S/D' }}</td>
                 <td>
-                    Acciones
+                    <a href="{{ route('competencias.resultados.edit', $resultado->id) }}"
+                        class="btn btn-sm btn-outline-warning"><i class="fas fa-edit mr-2"></i> Modificar Horario</a>
                 </td>
             </tr>
         @empty

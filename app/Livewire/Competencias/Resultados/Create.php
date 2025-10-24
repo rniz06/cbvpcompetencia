@@ -13,7 +13,7 @@ use Livewire\Component;
 class Create extends Component
 {
     #[Validate]
-    public $competencia_id, $concursantes = []; // PROPIEDADES DEL FORMULARIO
+    public $competencia_id, $concursantes = [], $fecha_hora_inicio; // PROPIEDADES DEL FORMULARIO
 
     public $concursantesParaSelect = [], $competencias = []; // PROPIEDADES PARA SELECT
 
@@ -26,8 +26,9 @@ class Create extends Component
     protected function rules()
     {
         return [
-            'competencia_id' => ['required', Rule::exists(Competencia::class, 'id')],
-            'concursantes'   => ['required', 'array', 'min:2']
+            'competencia_id'      => ['required', Rule::exists(Competencia::class, 'id')],
+            'concursantes'        => ['required', 'array', 'min:2'],
+            'fecha_hora_inicio'   => ['required']
         ];
     }
 
@@ -39,7 +40,7 @@ class Create extends Component
             Resultado::create([
                 'competencia_id'    => $this->competencia_id,
                 'concursante_id'    => $x,
-                'fecha_hora_inicio' => null,
+                'fecha_hora_inicio' => $this->fecha_hora_inicio ?? null,
                 'fecha_hora_fin'    => null,
                 'duracion_segundos' => null,
                 'creadoPor'         =>Auth::id()
