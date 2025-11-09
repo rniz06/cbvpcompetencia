@@ -28,7 +28,7 @@ class Create extends Component
         return [
             'competencia_id'      => ['required', Rule::exists(Competencia::class, 'id')],
             'concursantes'        => ['required', 'array', 'min:2'],
-            'fecha_hora_inicio'   => ['required']
+            //'fecha_hora_inicio'   => ['required']
         ];
     }
 
@@ -40,14 +40,15 @@ class Create extends Component
             Resultado::create([
                 'competencia_id'    => $this->competencia_id,
                 'concursante_id'    => $x,
-                'fecha_hora_inicio' => $this->fecha_hora_inicio ?? null,
+                //'fecha_hora_inicio' => $this->fecha_hora_inicio ?? null,
+                'fecha_hora_inicio' => null,
                 'fecha_hora_fin'    => null,
                 'duracion_segundos' => null,
                 'creadoPor'         =>Auth::id()
             ]);
         }
 
-        session()->flash('success', 'Rol Creado Correctamente!');
+        session()->flash('success', 'Registrado Correctamente!');
         $this->redirectRoute('competencias.resultados.index');
     }
 

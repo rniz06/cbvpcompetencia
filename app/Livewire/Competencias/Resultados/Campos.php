@@ -50,50 +50,65 @@ class Campos extends Component
     // MÉTODOS DE ACCIÓN
     // ----------------------
 
-    public function marcarEscala()
-    {
-        $this->actualizarCampo('escala');
-    }
+    // public function marcarEscala()
+    // {
+    //     $this->actualizarCampo('escala');
+    // }
 
-    public function marcarTorre()
-    {
-        $this->actualizarCampo('torre');
-    }
+    // public function marcarTorre()
+    // {
+    //     $this->actualizarCampo('torre');
+    // }
 
-    public function marcarMazo()
-    {
-        $this->actualizarCampo('mazo');
-    }
+    // public function marcarMazo()
+    // {
+    //     $this->actualizarCampo('mazo');
+    // }
 
-    public function marcarArrastre()
-    {
-        $this->actualizarCampo('arrastre');
-    }
+    // public function marcarArrastre()
+    // {
+    //     $this->actualizarCampo('arrastre');
+    // }
 
-    public function marcarVictima()
+    // public function marcarVictima()
+    // {
+    //     $victima = Carbon::now()->format('Y-m-d H:i:s.v');
+    //     $inicio = Carbon::parse($this->resultado->fecha_hora_inicio)->setTimezone(config('app.timezone'));
+    //     $fin = Carbon::parse($victima)->setTimezone(config('app.timezone'));
+    //     $duracion = $inicio->diffInSeconds($fin);
+
+    //     Resultado::where([['competencia_id', $this->competencia_id], ['concursante_id', $this->competidor_id]])
+    //         ->update([
+    //             'victima' => $victima,
+    //             'fecha_hora_fin' => now(),
+    //             'duracion_segundos' => $duracion,
+    //         ]);
+    // }
+
+    // protected function actualizarCampo($campo)
+    // {
+    //     if ($this->bloquearBotones) return;
+
+    //     Resultado::where('competencia_id', $this->competencia_id)
+    //         ->where('concursante_id', $this->competidor_id)
+    //         ->update([$campo => Carbon::now()->format('Y-m-d H:i:s.v')]);
+
+    //     $this->cargarResultado();
+    // }
+
+    public function marcarFinalizar()
     {
-        $victima = Carbon::now()->format('Y-m-d H:i:s.v');
+        $horaAmarcar = Carbon::now()->setTimezone(config('app.timezone'));
         $inicio = Carbon::parse($this->resultado->fecha_hora_inicio)->setTimezone(config('app.timezone'));
-        $fin = Carbon::parse($victima)->setTimezone(config('app.timezone'));
+        $fin = Carbon::parse($horaAmarcar)->setTimezone(config('app.timezone'));
         $duracion = $inicio->diffInSeconds($fin);
-
-        Resultado::where([['competencia_id', $this->competencia_id], ['concursante_id', $this->competidor_id]])
-            ->update([
-                'victima' => $victima,
-                'fecha_hora_fin' => now(),
-                'duracion_segundos' => $duracion,
-            ]);
-    }
-
-    protected function actualizarCampo($campo)
-    {
-        if ($this->bloquearBotones) return;
-
         Resultado::where('competencia_id', $this->competencia_id)
             ->where('concursante_id', $this->competidor_id)
-            ->update([$campo => Carbon::now()->format('Y-m-d H:i:s.v')]);
-
-        $this->cargarResultado();
+            ->update([
+                //'fecha_hora_fin' => now(),
+                'fecha_hora_fin' => $horaAmarcar,
+                'duracion_segundos' => $duracion,
+            ]);
     }
 
     public function render()

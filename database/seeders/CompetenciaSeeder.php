@@ -15,11 +15,11 @@ class CompetenciaSeeder extends Seeder
     public function run(): void
     {
         $competencias = [
-            'INDIVIDUAL MASCULINA',
-            'INDIVIDUAL FEMENINA',
-            'GRUPAL MIXTA',
-            'GRUPAL MASCULINA',
-            'GRUPAL FEMENINA',
+            'INDIVIDUAL MASCULINO',
+            'INDIVIDUAL FEMENINO',
+            'MIXTO',
+            'GRUPAL MASCULINO',
+            'GRUPAL FEMENINO',
             'SENIOR'
         ];
 
@@ -31,45 +31,38 @@ class CompetenciaSeeder extends Seeder
         }
 
         $concursantes = [
-            // 'Individual Masculino K10',
-            // 'Individual Masculino K13',
-            // 'Individual Masculino K122',
-            // 'Grupal Masculino promo 2021(varias cñias)',
-            // 'Grupal Mixto promo 2021(varias Cñias)',
-            // 'Grupal Femenino promo 2021(varias Cñias.)',
-            // 'Individual Femenino K4',
-            // 'Grupal Femenino K4',
-            // 'Grupal Femenino K4 (Equip. 2)',
-            // 'Grupal Mixto K4',
-            // 'Grupal Masculino K4'
-            'SUELI LOPEZ',
-            'MARIA DURE',
-            'BELEN SANTACRUZ',
-            'CAROLINA VILLAGRA',
-            'MABEL MIERES',
-            'FABIOLA OCAMPOS',
-            'CARMEN ESPINOZA',
-            'SUSANA LAFARJA',
 
-            'JUAN DUARTE',
+            'JUAN MARTIN DUARTE VILLAALTA',
             'WILLIAM BENITEZ',
             'RAUL VERA',
-            'CHRISTIAN BENITEZ',
-            'JONATHAN SOSA',
+            'ERNAN AGUERO',
+            'RENSO JARA',
+            'PEDRO MONGELOS',
             'DAVID HELLMAN',
-            'PEDRO MONGES',
+            'JONATHAN SOSA',
+            'ELADIO QUINTANA',
+            'DANIEL OZUNA',
+            'CHRISTIAN BENITEZ',
+            'OSVALT EMILIO OLIVA',
+            'ARIEL ACHUCARRO',
 
-            'K4',
-            'K5',
-            'R1',
-            'PROMO 2021',
+            'CARMEN ESPINOZA',
+            'FABIOLA MONSERRAT OCAMPOS',
+            'BELEN SANTACRUZ',
+            'MARIA DURE',
+            'SOLANA SUELI LOPEZ DIAZ',
+            'SUSANA LAFARJA',
+            'MABEL MIERES',
+
             'K2',
             'K4-1',
             'K4-2',
+            'K5',
             'K18',
             'SAR',
-            'K2-2',
-            'LA RAZA 021',
+            'PROMO 2021',
+            'K1',
+            'K121',
         ];
 
         foreach ($concursantes as $concursante) {

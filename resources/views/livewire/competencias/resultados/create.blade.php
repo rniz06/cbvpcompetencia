@@ -32,12 +32,12 @@
             </x-adminlte-select>
 
             {{-- Fecha Hora Inicio --}}
-            <x-adminlte-input type="datetime-local" name="fecha_hora_inicio" wire:model.blur="fecha_hora_inicio"
+            {{-- <x-adminlte-input type="datetime-local" name="fecha_hora_inicio" wire:model.blur="fecha_hora_inicio"
                 label-class="text-lightblue" wire:ignore fgroup-class="col-md-4">
                 <x-slot name="prependSlot">
-                    <div class="input-group-text">Concursantes *</div>
+                    <div class="input-group-text">Fecha Hora Inicio *</div>
                 </x-slot>
-            </x-adminlte-input>
+            </x-adminlte-input> --}}
             
             {{-- Botón de Volver --}}
             <div class="form-group col-md-3 d-flex align-items-end">
