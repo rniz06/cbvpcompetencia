@@ -20,12 +20,22 @@ class Competencia extends Model implements Auditable
         return $this->hasMany(Resultado::class, 'competencia_id');
     }
 
+    // public function concursantes()
+    // {
+    //     return $this->belongsToMany(Concursante::class, 'resultados');
+    //                 //->withPivot(['dorsal', 'tiempo_total', 'milisegundos', 'posicion', 'inicio', 'fin'])
+    //                 //->withTimestamps();
+    // }
+
     public function concursantes()
-    {
-        return $this->belongsToMany(Concursante::class, 'resultados');
-                    //->withPivot(['dorsal', 'tiempo_total', 'milisegundos', 'posicion', 'inicio', 'fin'])
-                    //->withTimestamps();
-    }
+{
+    return $this->belongsToMany(
+        Concursante::class,
+        'competencia.COM_RESULTADOS', // 👈 Nombre completo de la tabla pivote
+        'competencia_id',             // Foreign key en la pivote hacia Competencia
+        'concursante_id'              // Foreign key en la pivote hacia Concursante
+    );
+}
 
     /*
     |---------------------------------------

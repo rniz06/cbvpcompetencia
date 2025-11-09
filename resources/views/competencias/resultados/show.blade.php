@@ -46,7 +46,8 @@
 
     <hr>
     {{-- @livewire('competencias.resultados.show', ['competencia' => $competencia]) --}}
-    @livewire('competencias.resultados.ver', ['competencia' => $competencia])
+    {{-- @livewire('competencias.resultados.ver', ['competencia' => $competencia]) --}}
+    @livewire('competencias.resultados.general')
 @stop
 
 @push('css')
