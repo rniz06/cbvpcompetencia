@@ -19,7 +19,8 @@ class CompetenciaSeeder extends Seeder
             'INDIVIDUAL FEMENINA',
             'GRUPAL MIXTA',
             'GRUPAL MASCULINA',
-            'GRUPAL FEMENINA'
+            'GRUPAL FEMENINA',
+            'SENIOR'
         ];
 
         foreach ($competencias as $competencia) {
@@ -30,17 +31,45 @@ class CompetenciaSeeder extends Seeder
         }
 
         $concursantes = [
-            'Individual Masculino K10',
-            'Individual Masculino K13',
-            'Individual Masculino K122',
-            'Grupal Masculino promo 2021(varias cñias)',
-            'Grupal Mixto promo 2021(varias Cñias)',
-            'Grupal Femenino promo 2021(varias Cñias.)',
-            'Individual Femenino K4',
-            'Grupal Femenino K4',
-            'Grupal Femenino K4 (Equip. 2)',
-            'Grupal Mixto K4',
-            'Grupal Masculino K4'
+            // 'Individual Masculino K10',
+            // 'Individual Masculino K13',
+            // 'Individual Masculino K122',
+            // 'Grupal Masculino promo 2021(varias cñias)',
+            // 'Grupal Mixto promo 2021(varias Cñias)',
+            // 'Grupal Femenino promo 2021(varias Cñias.)',
+            // 'Individual Femenino K4',
+            // 'Grupal Femenino K4',
+            // 'Grupal Femenino K4 (Equip. 2)',
+            // 'Grupal Mixto K4',
+            // 'Grupal Masculino K4'
+            'SUELI LOPEZ',
+            'MARIA DURE',
+            'BELEN SANTACRUZ',
+            'CAROLINA VILLAGRA',
+            'MABEL MIERES',
+            'FABIOLA OCAMPOS',
+            'CARMEN ESPINOZA',
+            'SUSANA LAFARJA',
+
+            'JUAN DUARTE',
+            'WILLIAM BENITEZ',
+            'RAUL VERA',
+            'CHRISTIAN BENITEZ',
+            'JONATHAN SOSA',
+            'DAVID HELLMAN',
+            'PEDRO MONGES',
+
+            'K4',
+            'K5',
+            'R1',
+            'PROMO 2021',
+            'K2',
+            'K4-1',
+            'K4-2',
+            'K18',
+            'SAR',
+            'K2-2',
+            'LA RAZA 021',
         ];
 
         foreach ($concursantes as $concursante) {

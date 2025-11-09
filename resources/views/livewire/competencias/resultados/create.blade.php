@@ -20,7 +20,7 @@
 
             {{-- Concursantes --}}
             <x-adminlte-select name="concursantes" wire:model.blur="concursantes" multiple label-class="text-lightblue"
-                wire:ignore fgroup-class="col-md-6">
+                wire:ignore fgroup-class="col-md-6" size="10">
                 @forelse ($concursantesParaSelect as $concursante)
                     <option value="{{ $concursante->id ?? null }}">{{ $concursante->nombrecompleto ?? 'S/D' }}</option>
                 @empty
