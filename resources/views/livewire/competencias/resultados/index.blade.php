@@ -7,9 +7,27 @@
                     class="fas fa-plus-circle mr-2"></i>Registrar Carrera</a>
         </x-slot>
         <x-slot name="cabeceras">
+
             {{-- Competencia --}}
             <th>
-                Competencia
+                <x-adminlte-select name="" wire:model.live.debounce.200ms="buscarCompetenciaId" label="Competencia"
+                    igroup-size="sm">
+                    <option value="">-- Todos --</option>
+                    @foreach ($competencias as $competencia)
+                        <option value="{{ $competencia->id }}">{{ $competencia->competencia ?? 'S/D' }}</option>
+                    @endforeach
+                </x-adminlte-select>
+            </th>
+
+            {{-- Concursante --}}
+            <th>
+                <x-adminlte-select name="" wire:model.live.debounce.200ms="buscarConcursanteId" label="Concursante"
+                    igroup-size="sm">
+                    <option value="">-- Todos --</option>
+                    @foreach ($concursantes as $concursante)
+                        <option value="{{ $concursante->id }}">{{ $concursante->nombrecompleto ?? 'S/D' }}</option>
+                    @endforeach
+                </x-adminlte-select>
             </th>
 
             {{-- Concursante --}}
